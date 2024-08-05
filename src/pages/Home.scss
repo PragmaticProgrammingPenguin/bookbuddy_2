@@ -1,0 +1,12 @@
+@for $i from 1 through 4 {
+h#{$i}{
+    text-align: center;
+}
+}
+
+#bookSearch{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
