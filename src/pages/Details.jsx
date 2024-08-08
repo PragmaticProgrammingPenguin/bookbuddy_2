@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import axios from "axios";
 import SingleBook from "../components/SingleBook/SingleBook";
 
-export default function Details(){
+export default function Details({token}){
     const { id } = useParams();
     const [book, setBook] = useState(null);
     useEffect(() => {
@@ -15,7 +15,7 @@ export default function Details(){
     }, []);
     return(
         <>
-            <SingleBook book={book} parent="books" />
+            <SingleBook book={book} parent="books" token={token} />
         </>
     )
 }

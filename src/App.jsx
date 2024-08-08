@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import Account from './components/Account';
+import React, { useEffect, useState } from 'react'
+import Account from './pages/Account/Account';
 import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
@@ -20,10 +20,9 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home token={token} setToken={setToken} /> } />
-        <Route path="/books/:id" element={<Details />} />
+        <Route path="/books/:id" element={<Details token={token} />} />
 
         <Route path="/account" element={<Account token={token} setToken={setToken} />} />
-        
         <Route path="/register" element={<Register token={token} setToken={setToken}/> } />
         <Route path="/login" element={<Login token={token} setToken={setToken} /> } />
 

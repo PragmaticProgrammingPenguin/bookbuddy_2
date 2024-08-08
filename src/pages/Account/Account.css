@@ -1,0 +1,9 @@
+.accountInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:50%;
+    margin: 0px auto;
+    border: 1px solid black;
+}

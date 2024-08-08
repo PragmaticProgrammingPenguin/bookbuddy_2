@@ -1,7 +1,7 @@
 /* TODO - add your code to create a functional React component that renders a registration form */
 import axios from "axios";
 import NavBar from "../../components/NavBar/Navigations";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css"
 
@@ -46,26 +46,25 @@ export default function Register({ token, setToken }){
   //serve registration page
   return (
     <div>
-      <h1>Book Buddy</h1>
-      <NavBar />
+      <NavBar token={token} />
       <div className="formContainer">
         <h2>Register Here</h2>
         <form onSubmit={handleSubmit}>
           <label>
             First Name:
-            <input type="name" name="firstName" defaultValue="hs" onSubmit={handleInput} />
+            <input type="name" name="firstName" defaultValue="hs" onChange={handleInput} />
           </label>
           <label>
             Last Name:
-            <input type="name" name="lastName" defaultValue="hs" onSubmit={handleInput} />
+            <input type="name" name="lastName" defaultValue="hs" onChange={handleInput} />
           </label>
           <label>
             Email:
-            <input type="email" name="email" defaultValue="hs@hs" onSubmit={handleInput} />
+            <input type="email" name="email" defaultValue="hs@hs.com" onChange={handleInput} />
           </label>
           <label>
             Password:
-            <input type="password" name="password" defaultValue="hs" onSubmit={handleInput} />
+            <input type="password" name="password" defaultValue="hs" onChange={handleInput} />
           </label>
           <button>
             Submit

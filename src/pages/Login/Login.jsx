@@ -1,7 +1,7 @@
 /* TODO - add your code to create a functional React component that renders a login form */
 import "./Login.css"
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/Navigations";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,9 +28,10 @@ export default function Login({ token, setToken }){
         e.preventDefault()
         try {
             axios
-                .post(`${BASE_URL}/users/login`) 
+                .post(`${BASE_URL}/users/login`, formData) 
                 .then((response) => {
-                    if(response.data.success){
+                    console.log(response)
+                    if(response.data.token){
                         localStorage.setItem("token", response.data.token)
                         setToken(response.data.token)
                         navigate("/")
@@ -45,18 +46,17 @@ export default function Login({ token, setToken }){
     //serve login page
     return (
         <div>
-            <h1>Book Buddy</h1>
-            <NavBar />
+            <NavBar token={token} />
             <div className="formContainer">
             <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Email:
-                        <input type="text" name="email" onSubmit={handleInput} />
+                        <input type="text" name="email" onChange={handleInput} />
                     </label>
                     <label>
                         Password:
-                        <input type="password" name="password" onSubmit={handleInput} />
+                        <input type="password" name="password" onChange={handleInput} />
                     </label>
                     <button>
                         Login

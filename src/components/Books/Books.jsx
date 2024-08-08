@@ -9,7 +9,7 @@ export default function Books({ books }){
         return(
           <div className="book-list">
             {books?.map((book) => (
-              <SingleBook key={book.id} book={book}/>
+              <SingleBook key={book.id} book={book} />
             ))}
           </div>
         )

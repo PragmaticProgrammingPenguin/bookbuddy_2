@@ -10,3 +10,10 @@ h#{$i}{
     flex-direction: column;
     align-items: center;
 }
+
+.filter {
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto;
+    justify-content: center;
+}

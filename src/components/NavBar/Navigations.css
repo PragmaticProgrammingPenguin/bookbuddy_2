@@ -1,5 +1,6 @@
 .NavBar {
-    width:100%;
+    width:50%;
+    margin: 0px auto;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
