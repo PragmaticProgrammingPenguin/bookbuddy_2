@@ -12,29 +12,24 @@ export default function SingleBook({ book, parent, token }){
   // If detailed view adjust styling
   
   const MagicReturn = ({ token }) => {
-    const method = 'false';
-    MagicMethod({ token, method })
-  }
-
-  const MagicCheckout = ({ token }) => {
     const method = 'true';
     MagicMethod({ token, method })
   }
 
-  const MagicMethod = ({ token, method}) => {
+  const MagicCheckout = ({ token }) => {
+    const method = 'false';
+    MagicMethod({ token, method })
+  }
+
+  const MagicMethod = ({ token, method }) => {
     try{
       axios({
         method: 'patch',
         url: `${BASE_URL}/books/${book.id}`,
-        data: {
-          headers:{"Authorization": `Bearer ${token}`},
-          data:{"available": `${method}`,}
-        }
+        headers:{"Authorization": `Bearer ${token}`},
+        data:{"available": `${method}`}
       })
-        .then((response) => response.json())
-        .then((result) => {
-          console.log(result);
-        })
+        .then((response) => console.log(response, `Available: ${method}`))
         .catch((err) => console.log(err));
     } catch (err) {
       console.log(err)
@@ -61,15 +56,20 @@ export default function SingleBook({ book, parent, token }){
         <p>{book?.description}</p>
         {parent === "books" ? (
           book?.available ? (
-            <button onClick={MagicCheckout}>Available</button>
+            <>
+              <p>Available:</p>
+              <button onClick={() => MagicCheckout({ token })  }>Checkout</button>
+            </>
           ) : (
-            <p>Currently checked out</p>
+            <>
+              <p>Currently checked out</p>
+              <button onClick={() => MagicReturn({ token }) }>Magic Return</button>
+            </>
           )
         ) : (
             null
           )
         }
-        <button onClick={MagicReturn}>Magic Return</button>
       </div>
     ); 
 }

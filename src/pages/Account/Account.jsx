@@ -25,6 +25,21 @@ export default function Account({ token }){
          } catch (err) {
              console.log (err)
          }
+         
+    }
+
+    const GetReservations = ({ reservations }) => {
+        console.log(reservations)
+        return(
+            <>
+                {reservations?.forEach((book) => {
+                    <>
+                        <h2>{book.title}</h2>
+                        <img src={book.imageurl} />
+                    </>
+                })}
+            </>
+        )
     }
 
     const AccountNode = ({ accountInfo }) => {
@@ -37,7 +52,9 @@ export default function Account({ token }){
                     accountInfo === undefined ? (
                         null
                     ) : (
-                        <p>You have {accountInfo.books?.map((book) => book + ', ')} checked out.</p>
+                        <>
+                            <GetReservations reservations={accountInfo.books}/>
+                        </>
                     )
                 )}
             </div>
