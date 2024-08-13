@@ -28,7 +28,7 @@ export default function Home({ token }){
     
     const FilterAvailable = (e) => {
         e.preventDefault()
-        const availableSearch = books.filter((book) => book.available === "available")
+        const availableSearch = books.filter((book) => book.available === true)
         setBooksToShow(availableSearch)
     }
 

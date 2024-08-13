@@ -3,11 +3,11 @@ import axios from "axios";
 import "./Account.css"
 import NavBar from "../../components/NavBar/Navigations";
 import { useEffect, useState } from "react";
+import SingleBook from "../../components/SingleBook/SingleBook";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function Account({ token }){
-    const array = ['a', 'b', 'c']
     const [accountInfo, setAccountInfo] = useState({})
 
     useEffect(() => {
@@ -15,30 +15,25 @@ export default function Account({ token }){
     }, [])
         
     const FetchAcc = ( {token} ) => {
-         try{
-             axios
-                 .get(`${BASE_URL}/users/me`, {headers:{"Authorization":`Bearer ${token}`}})
-                 .then((result) => {
-                     setAccountInfo(result.data)
-                 })
-                 .catch(console.error);
-         } catch (err) {
-             console.log (err)
-         }
-         
+        try{
+            axios
+                .get(`${BASE_URL}/users/me`, {headers:{"Authorization":`Bearer ${token}`}})
+                .then((result) => {
+                    setAccountInfo(result.data)
+                })
+                .catch(console.error);
+        } catch (err) {
+            console.log (err)
+        }
     }
 
     const GetReservations = ({ reservations }) => {
-        console.log(reservations)
         return(
-            <>
-                {reservations?.forEach((book) => {
-                    <>
-                        <h2>{book.title}</h2>
-                        <img src={book.imageurl} />
-                    </>
-                })}
-            </>
+            <div className="book-list">
+                {reservations?.map((book) => (
+                    <SingleBook key={book.id} book={book} parent="reservations" token={token} />
+                ))}
+            </div>
         )
     }
 
@@ -49,13 +44,7 @@ export default function Account({ token }){
                 {accountInfo.books?.length === 0 ? (
                     <p>No books checked out.</p>    
                 ) : (
-                    accountInfo === undefined ? (
-                        null
-                    ) : (
-                        <>
-                            <GetReservations reservations={accountInfo.books}/>
-                        </>
-                    )
+                    null
                 )}
             </div>
         )
@@ -65,6 +54,7 @@ export default function Account({ token }){
         <>
             <NavBar token={token} />
             <AccountNode  accountInfo={accountInfo} />
+            <GetReservations reservations={accountInfo.books} />
         </>
     )
 }

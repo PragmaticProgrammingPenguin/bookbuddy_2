@@ -9,8 +9,8 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function SingleBook({ book, parent, token }){
   const navigate = useNavigate();
-  // If detailed view adjust styling
   
+  //Switch between return and checkout methods
   const MagicReturn = ({ token }) => {
     const method = 'true';
     MagicMethod({ token, method })
@@ -21,6 +21,7 @@ export default function SingleBook({ book, parent, token }){
     MagicMethod({ token, method })
   }
 
+  //Send request
   const MagicMethod = ({ token, method }) => {
     try{
       axios({
@@ -34,9 +35,23 @@ export default function SingleBook({ book, parent, token }){
     } catch (err) {
       console.log(err)
     } 
-
+    if(method = 'false') {
+      navigate("/")
+    }
   }
 
+  const DeleteReservation = ({ token }) => {
+    try{
+      axios
+        .delete(`${BASE_URL}/reservations/${book.id}`, {headers:{"Authorization":`Bearer ${token}`}})
+        .then(navigate('/'))
+        .catch((err) => console.log(err))
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+  //Alternate style if selected object
   const cardStyles = {
     width: parent ==="books" ? "90%" : "27%",
     margin: parent === "books" ? "0 auto " : null,
@@ -52,7 +67,11 @@ export default function SingleBook({ book, parent, token }){
           null
         )}
         <h2>{book?.title}</h2>
-        <img onClick={() => navigate(`/books/${book.id}`)} src={book?.coverimage} />
+        {parent === "books" ? (
+          <img src={book?.coverimage} />
+        ) : (
+          <img onClick={() => navigate(`/books/${book.id}`)} src={book?.coverimage} />
+        )}
         <p>{book?.description}</p>
         {parent === "books" ? (
           book?.available ? (
@@ -67,7 +86,11 @@ export default function SingleBook({ book, parent, token }){
             </>
           )
         ) : (
-            null
+            parent === "reservations" ? (
+              <button onClick={() => DeleteReservation({ token }) }>Return</button>
+            ) : (
+              null
+            )
           )
         }
       </div>
