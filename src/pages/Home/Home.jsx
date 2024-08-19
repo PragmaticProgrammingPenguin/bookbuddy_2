@@ -19,20 +19,20 @@ export default function Home({ token }){
             .catch((err) => console.log(err))   
     }, [])
 
-    const BookSearch = (e) => {
+    const bookSearch = (e) => {
         const searchResults = books.filter((book) =>
             book.title.toLowerCase().includes(e.target.value.toLowerCase())
         )
         setBooksToShow(searchResults)
     }
     
-    const FilterAvailable = (e) => {
+    const filterAvailable = (e) => {
         e.preventDefault()
         const availableSearch = books.filter((book) => book.available === true)
         setBooksToShow(availableSearch)
     }
 
-    const RemoveFilter = (e) => {
+    const removeFilter = (e) => {
         e.preventDefault()
         setBooksToShow(books)
     }
@@ -43,11 +43,11 @@ export default function Home({ token }){
         <br />
         <label id="bookSearch">
             Search for a book here:
-            <input type="text" onChange={BookSearch}/>
+            <input type="text" onChange={bookSearch}/>
         </label>
         <div className="filter">
-            <button onClick={FilterAvailable}>Filter Available</button>
-            <button onClick={RemoveFilter}>Remove Filter</button>
+            <button onClick={filterAvailable}>Filter Available</button>
+            <button onClick={removeFilter}>Remove Filter</button>
         </div>
         <h2>Our Library:</h2>
         <Books books={booksToShow} />

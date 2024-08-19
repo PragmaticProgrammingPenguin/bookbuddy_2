@@ -3,7 +3,8 @@ import axios from "axios";
 import "./Account.css"
 import NavBar from "../../components/NavBar/Navigations";
 import { useEffect, useState } from "react";
-import SingleBook from "../../components/SingleBook/SingleBook";
+import GetReservations from "./GetReservations";
+import AccountNode from "./AccountNode";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -11,10 +12,10 @@ export default function Account({ token }){
     const [accountInfo, setAccountInfo] = useState({})
 
     useEffect(() => {
-        FetchAcc({ token })
+        fetchAcc({ token })
     }, [])
         
-    const FetchAcc = ( {token} ) => {
+    const fetchAcc = ( {token} ) => {
         try{
             axios
                 .get(`${BASE_URL}/users/me`, {headers:{"Authorization":`Bearer ${token}`}})
@@ -25,29 +26,6 @@ export default function Account({ token }){
         } catch (err) {
             console.log (err)
         }
-    }
-
-    const GetReservations = ({ reservations }) => {
-        return(
-            <div className="book-list">
-                {reservations?.map((book) => (
-                    <SingleBook key={book.id} book={book} parent="reservations" token={token} />
-                ))}
-            </div>
-        )
-    }
-
-    const AccountNode = ({ accountInfo }) => {
-        return(
-            <div className="accountInfo">
-                <p>Hello, {accountInfo?.email}</p>
-                {accountInfo.books?.length === 0 ? (
-                    <p>No books checked out.</p>    
-                ) : (
-                    null
-                )}
-            </div>
-        )
     }
 
     return (

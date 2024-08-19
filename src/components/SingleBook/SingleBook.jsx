@@ -11,18 +11,18 @@ export default function SingleBook({ book, parent, token }){
   const navigate = useNavigate();
   
   //Switch between return and checkout methods
-  const MagicReturn = ({ token }) => {
+  const magicReturn = ({ token }) => {
     const method = 'true';
-    MagicMethod({ token, method })
+    magicMethod({ token, method })
   }
 
-  const MagicCheckout = ({ token }) => {
+  const magicCheckout = ({ token }) => {
     const method = 'false';
-    MagicMethod({ token, method })
+    magicMethod({ token, method })
   }
 
   //Send request
-  const MagicMethod = ({ token, method }) => {
+  const magicMethod = ({ token, method }) => {
     try{
       axios({
         method: 'patch',
@@ -39,7 +39,7 @@ export default function SingleBook({ book, parent, token }){
     }
   }
 
-  const DeleteReservation = ({ token }) => {
+  const deleteReservation = ({ token }) => {
     try{
       axios
         .delete(`${BASE_URL}/reservations/${book.id}`, {headers:{"Authorization":`Bearer ${token}`}})
@@ -76,17 +76,17 @@ export default function SingleBook({ book, parent, token }){
           book?.available ? (
             <>
               <p>Available:</p>
-              <button onClick={() => MagicCheckout({ token })  }>Checkout</button>
+              <button onClick={() => magicCheckout({ token })  }>Checkout</button>
             </>
           ) : (
             <>
               <p>Currently checked out</p>
-              <button onClick={() => MagicReturn({ token }) }>Magic Return</button>
+              <button onClick={() => magicReturn({ token }) }>Magic Return</button>
             </>
           )
         ) : (
             parent === "reservations" ? (
-              <button onClick={() => DeleteReservation({ token }) }>Return</button>
+              <button onClick={() => deleteReservation({ token }) }>Return</button>
             ) : (
               null
             )
