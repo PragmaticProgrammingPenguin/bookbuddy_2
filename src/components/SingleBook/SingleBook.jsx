@@ -30,7 +30,6 @@ export default function SingleBook({ book, parent, token }){
         headers:{"Authorization": `Bearer ${token}`},
         data:{"available": `${method}`}
       })
-        .then((response) => console.log(response, `Available: ${method}`))
         .catch((err) => console.log(err));
     } catch (err) {
       console.log(err)

@@ -30,7 +30,6 @@ export default function Login({ token, setToken }){
             axios
                 .post(`${BASE_URL}/users/login`, formData) 
                 .then((response) => {
-                    console.log(response)
                     if(response.data.token){
                         localStorage.setItem("token", response.data.token)
                         setToken(response.data.token)
