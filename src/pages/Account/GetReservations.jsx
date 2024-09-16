@@ -1,5 +1,6 @@
 import SingleBook from "../../components/SingleBook/SingleBook"
-export default GetReservations = ({ reservations }) => {
+const GetReservations = ({ reservations }) => {
+    console.log(reservations)
     return(
         <div className="book-list">
             {reservations?.map((book) => (
@@ -8,3 +9,5 @@ export default GetReservations = ({ reservations }) => {
         </div>
     )
 }
+
+export default GetReservations

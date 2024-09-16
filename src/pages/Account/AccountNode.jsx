@@ -1,4 +1,4 @@
-export default AccountNode = ({ accountInfo }) => {
+const AccountNode = ({ accountInfo }) => {
     return(
         <div className="accountInfo">
             <p>Hello, {accountInfo?.email}</p>
@@ -10,3 +10,5 @@ export default AccountNode = ({ accountInfo }) => {
         </div>
     )
 }
+
+export default AccountNode
